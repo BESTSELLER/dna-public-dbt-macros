@@ -1,0 +1,12 @@
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: dna-public-dbt-macros
+  description: Public repository for sharing dbt macros
+  annotations:
+    github.com/project-slug: BESTSELLER/dna-public-dbt-macros
+spec:
+  type: dbt-project
+  lifecycle: production
+  owner: dna-consumer-360-team

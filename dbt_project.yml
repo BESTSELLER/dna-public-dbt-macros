@@ -1,0 +1,10 @@
+name: 'dna_public_dbt_macros'
+version: '1.0.0'
+config-version: 2
+
+profile: 'default'
+
+macro-paths: ["macros"]
+
+## this dbt project is not supposed to do anything
+## it's only the place where we store shared macros
