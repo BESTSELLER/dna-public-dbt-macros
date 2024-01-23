@@ -7,10 +7,10 @@
   
   {{ log( 'Dropping unknown tables and views. dry_run: ' ~ dry_run , info=true) }}
   
-  {% set all_tables_and_views = get_all_tables_and_views() %}
-  {% set dbt_tables_and_views = get_dbt_nodes() %}
+  {% set all_tables_and_views = dna_public_dbt_macros.get_all_tables_and_views() %}
+  {% set dbt_tables_and_views = dna_public_dbt_macros.get_dbt_nodes() %}
   {% set ns = namespace(existsInDbt=false, query='') %}
-  {% set dbt_sources_schemas = get_dbt_sources_schemas() %}
+  {% set dbt_sources_schemas = dna_public_dbt_macros.get_dbt_sources_schemas() %}
   {% set model_counter = [] %}
 
   {{ log( 'Starting to drop non-dbt tables and views. dry_run: ' ~ dry_run , info=true) }}
