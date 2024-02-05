@@ -14,11 +14,14 @@
   {% set all_materializations = ["view", "table", "incremental", "seed"] %}
   {% set table_resource_types = ["model", "seed"] %}
   
-  {% for node in graph.nodes.values() %}    
+  {% for node in graph.nodes.values() %}
     {% if node.resource_type in table_resource_types and node.config.get('materialized', 'none') in all_materializations %}
 
     {# Set the table/view name as alias instead of node name if alias exists #}
     {% set node_name = node.config.get('alias') if node.config.get('alias') else node.name %}
+    {# Set the schema to what we define in the generate_schema_macro #}
+    {% set schema_name = generate_schema_name(node.config.get('schema'), node) %}
+
       
       {# Set the node_type type as either table or view. #}
       {% if node.config.get('materialized', 'table') in table_materializations %}
@@ -27,7 +30,7 @@
         {% set node_type = "view" %}
       {% endif %}
       
-      {% set node = {'schema': node.schema.upper(), 'name': node_name, 'type': node_type} %}
+      {% set node = {'schema': schema_name, 'name': node_name, 'type': node_type} %}
       {{ log( node , info=true) }}
       {% do dbt_tables_and_views.append(node) %}
     {% endif %}
