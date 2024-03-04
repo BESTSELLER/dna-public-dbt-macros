@@ -39,3 +39,14 @@ macros:
       This macro returns a list of all database.schema names contained within the dbt model graph
       for all sources, if the source exists in the _target_ database.
       The macro is used as input for the [drop_deprecated_tables_and_views](/#!/macro/macro.bestseller_dna_cons_dbt.drop_deprecated_tables_and_views) macro.
+
+  - name: get_exception_schemas
+    description: >
+      This macro returns a list of all schemas that are supposed to be ignored when either the drop_deprecated_tables_and_views or the drop_empty_schemas macro is run. The list gets compiled from a seed file called 'cleanup_exceptions.csv'. If any objects are defined in that file, then the seed file from the dna-public-dbt-macros repo needs to be disabled in the project's dbt_project.yml file.
+      The macro is used as input for the [drop_deprecated_tables_and_views](/#!/macro/macro.bestseller_dna_cons_dbt.drop_deprecated_tables_and_views) macro.
+
+  - name: get_exception_tables_views
+    description: >
+      This macro returns a list of all table and view objects (incl schema name) that are supposed to be ignored when the drop_deprecated_tables_and_views macro is run. The list gets compiled from a seed file called 'cleanup_exceptions.csv'. If any objects are defined in that file, then the seed file from the dna-public-dbt-macros repo needs to be disabled in the project's dbt_project.yml file.
+      The macro is used as input for the [drop_deprecated_tables_and_views](/#!/macro/macro.bestseller_dna_cons_dbt.drop_deprecated_tables_and_views) macro.
+  

@@ -11,16 +11,20 @@
   {% set dbt_tables_and_views = dna_public_dbt_macros.get_dbt_nodes() %}
   {% set ns = namespace(existsInDbt=false, query='') %}
   {% set dbt_sources_schemas = dna_public_dbt_macros.get_dbt_sources_schemas() %}
+  {% set excluded_schemas = dna_public_dbt_macros.get_exception_schemas() %}
+  {% set excluded_objects = dna_public_dbt_macros.get_exception_tables_views() %}
   {% set model_counter = [] %}
 
   {{ log( 'Starting to drop non-dbt tables and views. dry_run: ' ~ dry_run , info=true) }}
   {% for relation in all_tables_and_views %}
-    {% if relation.schema not in dbt_sources_schemas %}
+    {% if relation.schema not in dbt_sources_schemas and relation.schema not in excluded_schemas %}
 
       {% set ns.existsInDbt = false %}
       {% for node in dbt_tables_and_views %}
         {% if relation.schema.upper() == node.schema.upper() and relation.name.upper() == node.name.upper() %}
+        {% if relation.schema.upper() ~ '.' ~ relation.name.upper() in excluded_objects %}
           {% set ns.existsInDbt = true %}
+        {% endif %}
         {% endif %}
       {% endfor %}
 
