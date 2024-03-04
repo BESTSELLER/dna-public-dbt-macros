@@ -21,10 +21,8 @@
 
       {% set ns.existsInDbt = false %}
       {% for node in dbt_tables_and_views %}
-        {% if relation.schema.upper() == node.schema.upper() and relation.name.upper() == node.name.upper() %}
-        {% if relation.schema.upper() ~ '.' ~ relation.name.upper() in excluded_objects %}
+        {% if (relation.schema.upper() == node.schema.upper() and relation.name.upper() == node.name.upper()) or ( relation.schema.upper() ~ '.' ~ relation.name.upper() in excluded_objects) %}
           {% set ns.existsInDbt = true %}
-        {% endif %}
         {% endif %}
       {% endfor %}
 
