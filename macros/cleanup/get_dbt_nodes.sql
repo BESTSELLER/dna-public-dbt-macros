@@ -11,8 +11,8 @@
   {{ log( 'get_dbt_nodes: Loading views and tables from dbt graph' , info=true) }}  
   {% set dbt_tables_and_views = [] %}
   {% set table_materializations = ["table", "incremental", "seed"] %}
-  {% set all_materializations = ["view", "table", "incremental", "seed"] %}
-  {% set table_resource_types = ["model", "seed"] %}
+  {% set all_materializations = ["view", "table", "incremental", "seed", "snapshot"] %} 
+  {% set table_resource_types = ["model", "seed", "snapshot"] %}
 
 
   {% for node in graph.nodes.values() %}
